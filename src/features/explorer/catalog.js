@@ -158,55 +158,8 @@ export function getGranuleSignature(recordOrFeature) {
     frame: frameStr,
     productType: prodStr,
     key: `${prodStr}_TRK${trackStr}_${dirStr}_FRM${frameStr}`,
-    spatialKey: `TRK${trackStr}_${dirStr}_FRM${frameStr}`,
     date: p.acquisitionDate ?? (p.startTime ? String(p.startTime).slice(0, 10) : ''),
   };
-}
-
-/**
- * Group records or features into comparable multi-temporal repeat-pass pairs.
- * Returns an array of group objects with { groupKey, track, direction, frame, productType, items }.
- */
-export function findComparablePairs(recordsOrFeatures = []) {
-  if (!Array.isArray(recordsOrFeatures)) return [];
-  const groups = new Map();
-
-  recordsOrFeatures.forEach((item) => {
-    if (!item) return;
-    const sig = getGranuleSignature(item);
-    const groupKey = sig.spatialKey;
-    if (!groups.has(groupKey)) {
-      groups.set(groupKey, {
-        groupKey,
-        track: sig.track,
-        direction: sig.direction,
-        frame: sig.frame,
-        productType: sig.productType,
-        items: [],
-      });
-    }
-    groups.get(groupKey).items.push(item);
-  });
-
-  const comparableGroups = [];
-  groups.forEach((grp) => {
-    const dates = new Set(
-      grp.items.map((it) => {
-        const p = it.properties ?? it;
-        return p.acquisitionDate ?? (p.startTime ? p.startTime.slice(0, 10) : it.id);
-      })
-    );
-    if (grp.items.length >= 2 && dates.size >= 2) {
-      grp.items.sort((a, b) => {
-        const timeA = Date.parse((a.properties ?? a).startTime ?? '') || 0;
-        const timeB = Date.parse((b.properties ?? b).startTime ?? '') || 0;
-        return timeB - timeA;
-      });
-      comparableGroups.push(grp);
-    }
-  });
-
-  return comparableGroups;
 }
 
 /**

@@ -11,6 +11,12 @@ build/
 .vercel
 .vercel/
 
+# Local NISAR inputs and generated analysis files
+/nisar_area3/nisar_data/
+/nisar_area3/footprints_and_aoi.geojson
+/nisar_area3/outputs/*
+!/nisar_area3/outputs/water_change.png
+
 # Environment variables
 .env
 .env.local
