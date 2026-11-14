@@ -1,6 +1,6 @@
 # NISAR Lens
 
-Explore NASA–ISRO radar observations in a browser. Search for NISAR acquisitions, compare repeat passes on a 3D globe, and inspect a worked example of possible changes in surface water.
+Finding comparable radar observations and interpreting changes across dates can be difficult without geospatial tools. NISAR Lens makes NASA–ISRO NISAR observations explorable in a browser, with catalog search, repeat-pass comparison on a 3D globe, and a worked example of possible changes in surface water.
 
 **Team Beles · NASA Space Apps Challenge 2026 · [Dancing with the SARs](https://www.spaceappschallenge.org/2026/challenges/dancing-with-the-sars/)**
 
@@ -23,7 +23,7 @@ Open [http://localhost:5173](http://localhost:5173), or the address printed by V
 
 ### Optional configuration
 
-Create a local `.env` using [`.env.example`](.env.example) as a reference. Restart the dev server after changing the file.
+Create a local `.env` using [`.env.example`](.env.example) as a reference. Restart the dev server after changing the file. Git ignores the local `.env` and tracks the example template.
 
 | Variable | Purpose |
 | --- | --- |
@@ -54,7 +54,7 @@ The worked example uses two GCOV HDF5 acquisitions from **June 27 and July 9, 20
 
 ![Expanded GCOV water analysis in the app, showing HH observations, backscatter difference, a histogram, and the threshold-based water classification](docs/screenshots/gcov-water-case.webp)
 
-The [full-resolution chart](nisar_area3/outputs/water_change.png) is bundled with the app. To reproduce it from the original HDF5 files, use an environment with Python, the packages below, and a NASA Earthdata Login token. The download script prompts for the token and places the input files in `nisar_area3/nisar_data/`. The processing script writes the chart and NumPy arrays to `nisar_area3/outputs/`.
+The [full-resolution chart](nisar_area3/outputs/water_change.png) is bundled with the app. To reproduce it from the original HDF5 files, use an environment with Python, the packages below, and a NASA Earthdata Login token. The download script prompts for the token and places the input files in `nisar_area3/nisar_data/`. The processing script writes the chart and NumPy arrays to `nisar_area3/outputs/`. Git ignores the downloaded HDF5 files and generated NumPy arrays. Rerunning the analysis overwrites the tracked chart locally.
 
 ```bash
 python -m pip install asf_search h5py numpy scipy pyproj matplotlib
@@ -62,7 +62,7 @@ python nisar_area3/s7_download_gcov.py
 python nisar_area3/s8_water_change.py
 ```
 
-### Source references
+### Data and resources
 
 | Source | How NISAR Lens uses it |
 | --- | --- |
@@ -71,7 +71,24 @@ python nisar_area3/s8_water_change.py
 | [NISAR L3 SME2 product DOI](https://doi.org/10.5067/NIL3SME2-P1) | Provisional soil moisture observations for the Svalbard example. |
 | [Esri World Imagery](https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer) · [Esri World Boundaries and Places](https://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer) | Basemap imagery and place labels used by the globe. |
 
-The original browse URLs are in the [bundled ASF catalog](public/data/nisar-catalog.json), with the two demo filenames listed in [`demoBrowse.js`](src/features/explorer/demoBrowse.js). The [water case script](nisar_area3/s8_water_change.py) gives both HDF5 filenames and the study bounds. The [SME2 data module](src/features/explorer/sme2Data.js) records the Svalbard granule ID.
+<details>
+<summary>NISAR granules used in the demo</summary>
+
+| Example | Acquisition date | Granule ID |
+| --- | --- | --- |
+| Browser comparison | 2026-09-22 | `NISAR_L2_PR_GCOV_031_069_A_015_4005_DHDH_A_20260922T232205_20260922T232240_P05023_N_F_J_001` |
+| Browser comparison | 2026-10-04 | `NISAR_L2_PR_GCOV_032_069_A_015_4005_DHDH_A_20261004T232205_20261004T232240_P05023_N_F_J_001` |
+| Scientific water case | 2026-06-27 | `NISAR_L2_PR_GCOV_024_019_D_076_2005_DHDH_M_20260627T124243_20260627T124317_P05023_N_F_J_001` |
+| Scientific water case | 2026-07-09 | `NISAR_L2_PR_GCOV_025_019_D_076_2005_DHDH_M_20260709T124242_20260709T124317_P05023_N_F_J_001` |
+| Svalbard soil moisture | 2026-09-27 | `NISAR_L3_PR_SME2_031_141_A_045_0005_NASV_A_20260927T233048_20260927T233132_P05023_N_F_J_001` |
+
+</details>
+
+The [bundled ASF catalog](public/data/nisar-catalog.json) contains the original browse URLs. The [water case script](nisar_area3/s8_water_change.py) records the HDF5 filenames and study bounds. The [SME2 data module](src/features/explorer/sme2Data.js) contains the points rendered by the app.
+
+### Documentation attribution
+
+OpenAI Codex assisted with editing and verifying this README. The screenshots were captured from the running application in Chrome.
 
 ## Architecture
 
@@ -82,9 +99,10 @@ React and Vite power the interface. Cesium renders the globe, acquisition footpr
 | [`src/features/explorer/`](src/features/explorer/) | Catalog filters, timeline, globe, imagery viewer, comparison, and exports. |
 | [`api/`](api/) | Server handlers for ASF search and Earthdata assets. |
 | [`public/data/`](public/data/) | Bundled ASF metadata and NASA Earthdata preview copies. |
-| [`nisar_area3/`](nisar_area3/) | Scientific processing scripts and case study outputs. |
+| [`nisar_area3/`](nisar_area3/) | GCOV pair discovery, download and processing scripts, plus the water analysis chart used by the app. |
+| [`nisar_sme2.json`](nisar_sme2.json) | Source export for the bundled Svalbard soil moisture example. |
 | [`DEMO_GUIDE.md`](DEMO_GUIDE.md) | Extended Russian-language walkthrough for local testing and presentations. |
 
 ## License
 
-The original NISAR Lens code, documentation, and other original project materials are licensed under the [Apache License 2.0](LICENSE). NISAR data and imagery, basemap tiles, and third-party dependencies are subject to their respective providers’ terms. See [Source references](#source-references) for the data and imagery providers.
+The original NISAR Lens code, documentation, and other original project materials are licensed under the [Apache License 2.0](LICENSE). NISAR data and imagery, basemap tiles, and third-party dependencies are subject to their respective providers’ terms. See [Data and resources](#data-and-resources) for the data and imagery providers.
