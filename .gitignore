@@ -1,40 +1,38 @@
-# Dependencies
+# === DEPENDENCIES ===
 node_modules/
 .pnp
 .pnp.js
+.pnp.cjs
+.pnp.loader.mjs
+.venv/
+venv/
 
-# Production build output & Vercel
+# === BUILD ARTIFACTS ===
 dist/
 dist-ssr/
 build/
 .vite/
 .vercel
 .vercel/
+*.py[cod]
+__pycache__/
 
-# Local NISAR inputs and generated analysis files
-/nisar_area3/nisar_data/
-/nisar_area3/footprints_and_aoi.geojson
-/nisar_area3/outputs/*
-!/nisar_area3/outputs/water_change.png
-
-# Environment variables
+# === ENVIRONMENT & SECRETS ===
 .env
+.env.*
 .env.local
+.env.*.local
 .env.development.local
 .env.test.local
 .env.production.local
 *.local
+!.env.example
+*.pem
+*.key
+secrets.*
 
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
-
-# Editor directories and files
+# === OS & EDITOR JUNK ===
+# Keep the shared VS Code extension recommendations visible to Git.
 .vscode/*
 !.vscode/extensions.json
 .idea/
@@ -43,12 +41,30 @@ lerna-debug.log*
 *.njsproj
 *.sln
 *.sw?
-
-# OS generated files
 .DS_Store
 .DS_Store?
+# macOS AppleDouble metadata files on non-native filesystems.
 ._*
 .Spotlight-V100
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# === LOGS & TEMPORARY FILES ===
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+*.tmp
+*.temp
+
+# === PROJECT-SPECIFIC ===
+# Ignore downloaded NISAR inputs and reproducible analysis outputs.
+/nisar_area3/nisar_data/
+/nisar_area3/footprints_and_aoi.geojson
+/nisar_area3/outputs/*
+# The web demo imports this figure and ships it with the app.
+!/nisar_area3/outputs/water_change.png
