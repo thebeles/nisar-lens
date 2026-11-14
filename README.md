@@ -2,9 +2,9 @@
 
 Explore NASA–ISRO radar observations in a browser. Search for NISAR acquisitions, compare repeat passes on a 3D globe, and inspect a worked example of possible changes in surface water.
 
-**NASA Space Apps Challenge 2026 · [Dancing with the SARs](https://www.spaceappschallenge.org/2026/challenges/dancing-with-the-sars/)**
+**Team Beles · NASA Space Apps Challenge 2026 · [Dancing with the SARs](https://www.spaceappschallenge.org/2026/challenges/dancing-with-the-sars/)**
 
-[Quick start](#quick-start) · [Walkthrough](#walkthrough) · [Data and methods](#data-and-methods) · [Architecture](#architecture)
+[Quick start](#quick-start) · [Walkthrough](#walkthrough) · [Data and methods](#data-and-methods) · [Architecture](#architecture) · [License](#license)
 
 ![Split curtain on the globe comparing NISAR GCOV observations from September 22 and October 4, 2026](docs/screenshots/repeat-pass-comparison.webp)
 
@@ -84,3 +84,7 @@ React and Vite power the interface. Cesium renders the globe, acquisition footpr
 | [`public/data/`](public/data/) | Bundled ASF metadata and NASA Earthdata preview copies. |
 | [`nisar_area3/`](nisar_area3/) | Scientific processing scripts and case study outputs. |
 | [`DEMO_GUIDE.md`](DEMO_GUIDE.md) | Extended Russian-language walkthrough for local testing and presentations. |
+
+## License
+
+The original NISAR Lens code, documentation, and other original project materials are licensed under the [Apache License 2.0](LICENSE). NISAR data and imagery, basemap tiles, and third-party dependencies are subject to their respective providers’ terms. See [Source references](#source-references) for the data and imagery providers.
