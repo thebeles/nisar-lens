@@ -4,7 +4,7 @@ Finding comparable radar observations and interpreting changes across dates can 
 
 **Team Beles · NASA Space Apps Challenge 2026 · [Dancing with the SARs](https://www.spaceappschallenge.org/2026/challenges/dancing-with-the-sars/)**
 
-[Presentation (PDF)](NISAR-Lens.pdf) · [Quick start](#quick-start) · [Walkthrough](#walkthrough) · [Data and methods](#data-and-methods) · [Architecture](#architecture) · [License](#license)
+[Live demo](https://nisar-lens.vercel.app/) · [Demo video (MP4)](NISAR-Lens.mp4) · [Presentation (PDF)](NISAR-Lens.pdf) · [Quick start](#quick-start) · [Walkthrough](#walkthrough) · [Data and methods](#data-and-methods) · [Architecture](#architecture) · [License](#license)
 
 ![Split curtain on the globe comparing NISAR GCOV observations from September 22 and October 4, 2026](docs/screenshots/repeat-pass-comparison.webp)
 
